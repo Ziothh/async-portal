@@ -1,0 +1,37 @@
+{
+  "name": "@ziothh/modal",
+  "version": "0.0.0",
+  "description": "",
+  "private": false,
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "pnpm build:ts && pnpm build:css",
+    "build:css": "npx tailwindcss -i ./src/styles.css -o ./dist/styles.css",
+    "build:ts": "tsc",
+    "watch:ts": "tsc --watch",
+    "watch:css": "npx tailwindcss -i ./src/input.css -o ./dist/output.css --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@headlessui/react": "^1.7.14",
+    "clsx": "^1.2.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^18.15.5",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.1",
+    "tailwindcss": "^3.3.2",
+    "typescript": "^5.0.4"
+  }
+}
