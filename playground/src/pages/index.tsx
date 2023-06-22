@@ -1,5 +1,5 @@
 import { type NextPage } from "next";
-import { confirmModal } from '@ziothh/modal';
+import { asyncModal } from '@ziothh/modal';
 
 const Home: NextPage = () => {
   return (
@@ -10,12 +10,12 @@ const Home: NextPage = () => {
             Create <span className="text-[hsl(280,100%,70%)]">T3</span> App
           </h1>
           <button className="text-white border px-4 py-2 rounded-md" onClick={async () => {
-            const res = await confirmModal(({ confirm, close, decline, }) => {
+            const res = await asyncModal<string | false | null>(({ resolve }) => {
               return (
-                <div className="grid grid-cols-2 gap-4">
-                  <button onClick={() => confirm(true)}>Yes</button>
-                  <button onClick={decline}>No</button>
-                  <button className="col-span-2" onClick={close}>Close</button>
+                <div className="grid grid-cols-2 gap-4 bg-neutral-900 shadow-lg text-white p-7 rounded-lg w-fit">
+                  <button onClick={() => resolve("hi")}>Yes</button>
+                  <button onClick={() => resolve(false)}>No</button>
+                  <button className="col-span-2" onClick={() => resolve(null)}>Close</button>
                 </div>
               )
             })

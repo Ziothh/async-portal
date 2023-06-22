@@ -50,9 +50,7 @@ const ModalWrapper: React.FC<Props> = ({
         className={"fixed inset-0 flex justify-center items-center z-999"}
       >
         <div className="relative flex justify-center items-center">
-          {/*
-                Use one Transition.Child to apply one transition to the backdrop...
-                */}
+          {/* Use one Transition.Child to apply one transition to the backdrop... */}
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -61,19 +59,17 @@ const ModalWrapper: React.FC<Props> = ({
             leave="ease-in duration-200"
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
+            
             // @ts-ignore
             {...backdropTransition}
           >
             <Dialog.Backdrop className={clsx(
-              "absolute inset-0 z-0 bg-black/30 bg-gray-900 bg-opacity-30 backdrop-blur-md",
+              "absolute inset-0 z-0 bg-gray-900 bg-opacity-30 backdrop-blur-md",
               backdropClassName,
             )} />
           </Transition.Child>
 
-          {/*
-                ...and another Transition.Child to apply a separate transition
-                to the contents.
-                */}
+          {/* ...and another Transition.Child to apply a separate transition to the contents. */}
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -86,7 +82,7 @@ const ModalWrapper: React.FC<Props> = ({
             {...transition}
           >
             <Dialog.Panel className={clsx(
-              `relative z-10 bg-neutral-900 shadow-lg text-white p-7 rounded-lg w-fit`,
+              `relative z-10`,
               className
             )}
             >
