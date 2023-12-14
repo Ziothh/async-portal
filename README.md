@@ -1,5 +1,5 @@
 # async-portal
-This is a small library that makes working with react portals in an asynchronous manner easyer.
+This is a small library that makes working with react portals in an asynchronous manner easier.
 
 This is useful when you quickly want to get asynchronous responses from modals and dialogs.
 
