@@ -1,5 +1,4 @@
 import { type AppType } from "next/dist/shared/lib/utils";
-import '@ziothh/modal/dist/styles.css'
 
 import "~/styles/globals.css";
 

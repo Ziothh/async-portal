@@ -1,21 +1,14 @@
 import type { FC } from 'react';
 import { type Root, createRoot } from 'react-dom/client';
-import ModalWrapper from './ModalWrapper';
 
 let root: Root | null = null;
 
 /** 
- * It will render and thus display a modal when called.
- * A promise is returned that can be resolved by the child component.
- *
- * @param children - A ReactNode or Component that gets rendered inside the modal. 
- * Its props contain callbacks to resolve the promise.
- *
- * @param modalProps - Properties that get passed to ModalWrapper component.
+ * It will render and thus display a the component when called.
+ * A promise is returned that can be resolved by the component.
  * */
-export const asyncModal = async <T,>(
-  ModalComponent: ConfirmModalBody<T>,
-  modalProps: ConfirmModalCallProps = {}
+export const asyncPortal = async <T,>(
+  PortalComponent: FC<PortalComponentProps<T>>,
 ) => {
   const body = document.querySelector("body")!
 
@@ -30,36 +23,22 @@ export const asyncModal = async <T,>(
     }, 300)
   }
 
-  let container: null | HTMLDivElement = null
-  const promise = new Promise<T | false>((res, rej) => {
-
+  let container: null | HTMLDivElement = null;
+  const promise = new Promise<T>((res, rej) => {
     if (root === null) {
-      container = document.createElement("div")
-      container.setAttribute("data-modal-container", "")
-      body.appendChild(container)
+      container = document.createElement("div");
+      container.setAttribute("data-async-portal-container", "");
+      body.appendChild(container);
 
-      root = createRoot(container)
+      root = createRoot(container);
     }
 
-
     root.render(
-      <ModalWrapper
-        {...modalProps}
-        onClose={close}
-        children={({ close: setModalClosed }) => (
-          <ModalComponent
-            resolve={(value) => {
-              setModalClosed();
-              res(value)
-            }}
-            reject={(...args) => {
-              setModalClosed();
-              rej(...args)
-            }}
-          />
-        )}
+      <PortalComponent
+        resolve={res}
+        reject={rej}
       />
-    )
+    );
   })
 
   return promise.then(res => {
@@ -77,13 +56,7 @@ export const asyncModal = async <T,>(
 
 // ------------------------------------------------------------------
 
-interface ConfirmModalChildrenProps<T> {
+export interface PortalComponentProps<T> {
   resolve: (value: T) => void
   reject: (...args: Parameters<typeof Promise.reject<T>>) => void
-}
-
-type ConfirmModalBody<T> = FC<ConfirmModalChildrenProps<T>>
-
-interface ConfirmModalCallProps {
-  className?: string
 }
